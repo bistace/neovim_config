@@ -10,6 +10,34 @@ return require('packer').startup(function(use)
 
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('nvim-treesitter/playground')
+  
+  -- File navigation made easy by pinning files
+  use('theprimeagen/harpoon')
+
+  -- Integrated git
+  use('tpope/vim-fugitive')
+
+  -- LSP
+  use {
+	  'VonHeikemen/lsp-zero.nvim',
+	  branch = 'v2.x',
+	  requires = {
+		  -- LSP Support
+		  {'neovim/nvim-lspconfig'},             -- Required
+		  {                                      -- Optional
+		  'williamboman/mason.nvim',
+		  run = function()
+			  pcall(vim.cmd, 'MasonUpdate')
+		  end,
+	          },
+		  {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+		  -- Autocompletion
+		  {'hrsh7th/nvim-cmp'},     -- Required
+		  {'hrsh7th/cmp-nvim-lsp'}, -- Required
+		  {'L3MON4D3/LuaSnip'},     -- Required
+	  }
+  }
 
   use({ 'rose-pine/neovim', as = 'rose-pine' })
   vim.cmd('colorscheme rose-pine')
